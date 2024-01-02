@@ -22,12 +22,11 @@ export async function createCostumerController(req: any, res: any) {
         address: 'Address is required'
       };
   
-      // Iterar sobre las claves del objeto
     for (const property in requiredProperties) {
         if (!req.body[property as keyof CreateCustomerRequestBody]) {
         const errorMessage = requiredProperties[property as keyof CreateCustomerRequestBody];
         res.status(400).json({ message: errorMessage });
-        return;  // Termina la función si falta alguna propiedad
+        return; 
         }
   }
   
@@ -49,12 +48,25 @@ export async function createCostumerController(req: any, res: any) {
         address
       });
       console.log(result);
+
+      if(result.acknowledged){
+
+        res.status(200).json({ message: 'Costumer created successfully' });
+
+
+      }else{
+        throw new Error ('Customer was not created');
+      }
   
-      res.status(200).json({ message: 'Costumer created successfully' });
+
+
     } catch (error: unknown) {
+
     if (error instanceof Error) {
+
       res.status(500).json({ error: error.toString() });
     } else {
+
       res.status(500).json({ error: 'An unknown error occurred' });
     }
   }
