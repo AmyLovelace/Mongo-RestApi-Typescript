@@ -1,6 +1,6 @@
 
 
-export async function getCostumerController(req: any, res: any) {
+export async function getCostumersController(req: any, res: any) {
     try {
         const { db } = req.app;
 
